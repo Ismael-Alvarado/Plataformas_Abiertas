@@ -9,19 +9,19 @@ int es_identidad(int m[ ][ SIZE ] ) ;
 int tiene_fila_completa( int m[ ][ SIZE ] ) ;
 int tiene_columna_completa( int m[ ][ SIZE ] ) ;
 void imprimir( int m[ ][ SIZE ] ) ;
-int[ ][ SIZE ] aleatorio( int m[ ][ SIZE ] ) ;
 void analisis( int m[ ][ SIZE ] ) ;
 
 
 
 int main ( void ) {
 
-int m[ SIZE ][ SIZE ] = {
-{1 , 0 , 0 , 0} ,
-{0 , 1 , 0 , 0} ,
-{0 , 0 , 1 , 0} ,
-{ 0 , 0 , 0 , 1}
-};
+int m[ SIZE ][ SIZE ];
+    for ( int i = 0 ; i < SIZE ; i ++ ) { 
+    for ( int j = 0 ; j < SIZE ; j ++ ) {
+        if ( i == j ) {
+        m[ i ][ j ] = 1;
+        } else { m[ i ][ j ] = 0; }
+    }}
 
 imprimir(m);
 analisis(m);
