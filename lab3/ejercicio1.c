@@ -25,6 +25,7 @@ printf( "3^4 = %d\n", potencia (3, 4));
 
 int base;
 int exponente;
+int resultado;
 do {
 printf("Ingrese numero base: ");
 scanf("%d", &base);
@@ -35,5 +36,7 @@ if ( exponente < 0 || base == 0 ) {
     printf("Error al ingresar numero");
 }
 } while ( exponente < 0 || base == 0 );
-
+resultado=potencia(base, exponente);
+printf( "%d^%d = %d\n", base, exponente, resultado);
+es_par(resultado);
 }

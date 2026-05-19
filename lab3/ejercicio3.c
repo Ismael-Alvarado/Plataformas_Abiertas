@@ -56,7 +56,7 @@ int lectura_extrema(Lectura s[] , int n) {
     int valor_extremo = 0;
     for (int i = 1; i < n; i++) {
         int temp=1;
-        if (s[[i]].valor < 50) {
+        if (s[i].valor < 50) {
             temp=-1;
         }
         if (s[i].valor*temp - 50*temp > valor_extremo) {
@@ -72,7 +72,6 @@ void imprimir_lecturas(Lectura s[] , int n) {
     printf("ID\tValor\tEstado\n");
     for (int i = 0; i < n; i++) {
         printf("%d\t%.2f\t", s[i].id, s[i].valor);
-        }
         switch (s[i].estado) {
             case NORMAL:
                 printf("NORMAL\n");
@@ -83,5 +82,6 @@ void imprimir_lecturas(Lectura s[] , int n) {
             case FALLO:
                 printf("FALLO\n");
                 break;
-        }
+        		      }
+	}
 }
