@@ -5,14 +5,17 @@
 
 int contar_unos_fila( int m[ ][ SIZE ] , int fila ) ;
 int contar_unos_columna( int m[ ][ SIZE ] , int col ) ;
-int es_identidad (int m[ ][ SIZE ] ) ;
-int tiene_fila_completa ( int m[ ][ SIZE ] ) ;
-int tiene_columna_completa ( int m[ ][ SIZE ] ) ;
-
+int es_identidad(int m[ ][ SIZE ] ) ;
+int tiene_fila_completa( int m[ ][ SIZE ] ) ;
+int tiene_columna_completa( int m[ ][ SIZE ] ) ;
+void imprimir( int m[ ][ SIZE ] ) ;
+int[ ][ SIZE ] aleatorio( int m[ ][ SIZE ] ) ;
+void analisis( int m[ ][ SIZE ] ) ;
 
 
 
 int main ( void ) {
+
 int m[ SIZE ][ SIZE ] = {
 {1 , 0 , 0 , 0} ,
 {0 , 1 , 0 , 0} ,
@@ -20,20 +23,18 @@ int m[ SIZE ][ SIZE ] = {
 { 0 , 0 , 0 , 1}
 };
 
-/∗ Su i m p l e m e n t a c i o n ∗/
-printf ( "Matriz : \n" ) ;
-for ( int i = 0 ; i < SIZE ; i ++ ) {
+imprimir(m);
+analisis(m);
+
+srand(time(NULL));
+int p[ SIZE ][ SIZE ];
+
+    for ( int i = 0 ; i < SIZE ; i ++ ) { //crea matriz con numeros aleatorios entre 0 y 1
     for ( int j = 0 ; j < SIZE ; j ++ ) {
-        printf ( "%d " , m[ i ][ j ] ) ;  
-    }
-printf ( "\n" ) ;
-}
-const char *identidad = es_identidad(m) ? "si" : "no";
-printf ( "Es matriz identidad: %s \n" , identidad ) ;
-const char *columna1 = tiene_columna_completa(m) ? "si" : "no";
-printf ( "Tiene columna completa de unos: %s \n" , columna1 ) ;
-const char *fila1 = tiene_fila_completa(m) ? "si" : "no";
-printf ( "Tiene fila completa de unos: %s \n" , fila1 ) ;
+        p[ i ][ j ] = rand() % 2 ;
+    }}
+imprimir(p);
+analisis(p);
 
 return 0;
 }
@@ -92,3 +93,24 @@ return 1 ;
 }
 return 0 ;
 }
+
+void imprimir ( int m[ ][ SIZE ] ) {
+    printf ( "Matriz : \n" ) ;
+for ( int i = 0 ; i < SIZE ; i ++ ) {
+    for ( int j = 0 ; j < SIZE ; j ++ ) {
+        printf ( "%d " , m[ i ][ j ] ) ;  
+    }
+printf ( "\n" ) ;
+}
+}
+void analisis ( int m[ ][ SIZE ] ) {
+    const char *identidad = es_identidad(m) ? "si" : "no";
+    printf ( "Es matriz identidad: %s \n" , identidad ) ;
+    const char *columna1 = tiene_columna_completa(m) ? "si" : "no";
+    printf ( "Tiene columna completa de unos: %s \n" , columna1 ) ;
+    const char *fila1 = tiene_fila_completa(m) ? "si" : "no";
+    printf ( "Tiene fila completa de unos: %s \n" , fila1 ) ;
+}
+
+
+
