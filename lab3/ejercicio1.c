@@ -38,5 +38,5 @@ if ( exponente < 0 || base == 0 ) {
 } while ( exponente < 0 || base == 0 ); // un do while para seguir preguntando dado nos dan datos erroneos
 resultado=potencia(base, exponente); // se llama a la funcion que calcula potencia
 printf( "%d^%d = %d\n", base, exponente, resultado); // se imprimer resultado
-es_par(resultado); // se determina si resultado es par
+es_par(resultado); // se determina si resultado es par o impar con funcion creada
 }
