@@ -11,7 +11,7 @@ typedef struct {
  EstadoSensor clasificar(float valor);
 int contar_estado(Lectura s[] , int n, EstadoSensor e);
 int lectura_extrema(Lectura s[] , int n);
-void imprimir_lecturas(Lectura s[] , int n); // se crea prototipo de impresion
+void imprimir_lecturas(Lectura s[] , int n); // se crea prototipo de impresion funcion void
 
 int main(void) {
 Lectura sensores[MAX_SENSORES]; // se crean tantos structs como sensores
