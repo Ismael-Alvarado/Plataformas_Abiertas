@@ -1,5 +1,4 @@
 #include <stdio.h>
-// le agregue esto para branch
 int potencia (int base , int exp) { 
 int resultado=1;
 while ( exp > 0 ) {
