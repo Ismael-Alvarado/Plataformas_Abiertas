@@ -94,7 +94,7 @@ return 1 ;
 return 0 ;
 }
 
-void imprimir ( int m[ ][ SIZE ] ) { // funcion que imprime matrices
+void imprimir ( int m[ ][ SIZE ] ) { // funcion que imprime matrices con buen formato
     printf ( "Matriz : \n" ) ;
 for ( int i = 0 ; i < SIZE ; i ++ ) {
     for ( int j = 0 ; j < SIZE ; j ++ ) {
