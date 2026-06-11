@@ -87,6 +87,20 @@ unsigned char *make_negative(unsigned char *pixels,
 }
 
 /*
+Guarda una copia del original*/
+unsigned char *save_copy(unsigned char *pixels, int total) {
+    unsigned char *copy = malloc(total * sizeof(unsigned char));
+    if (copy == NULL) {
+        fprintf(stderr, "Error: No se pudo reservar memoria para la copia\n");
+        return NULL;
+    }
+    for (int i = 0; i < total; i++) {
+        *(copy + i) = *(pixels + i);
+    }
+    return copy;
+}
+
+/*
 Escribe un arreglo de pixeles como imagen PGM (formato P2).
 
 Params:
@@ -129,17 +143,48 @@ void print_stats(unsigned char *original,
                  unsigned char *thresholded,
                  int total) {
     int count_0 = 0, count_255 = 0;
+    for (int i = 0; i < total; i++) {
+        if (*(thresholded + i) == 0) {
+            count_0++; // cuenta pixeles con valor 0
+        } else { // si no es 0, entonces es 255
+            count_255++;
+        }
+    }
+    printf("Estadísticas del arreglo umbralizado:\n");
+    printf("  Pixeles con valor 0: %d\n", count_0);
+    printf("  Pixeles con valor 255: %d\n", count_255);
+    int promedio = 0, max = 0, min = 255; // se agrega max y min en estadisticas
+    for (int i = 0; i < total; i++) {
+        int val = *(original + i);
+        promedio += val; // suma para promedio
+        if (val > max) max = val; //compara si es mayor que guardado
+        if (val < min) min = val; //compara si es menor que guardado
+    }
+    printf("Estadísticas del arreglo original:\n");
+    printf("  Promedio: %d\n", promedio / total); //la suma entre N total
+    printf("  Valor máximo: %d\n", max);
+    printf("  Valor mínimo: %d\n", min);
 }
 
 int main(void) {
     int width, height, max_val, threshold;
     unsigned char *pixels = NULL;
     unsigned char *negative = NULL;
-    read_pgm("input.pgm", &width, &height, &max_val);
+    unsigned char *original = NULL; //Tuve que crear uno nuevo porque programa original sobreescribe matriz original con umbralizada, lo que hace imposible calcular estadisticas del original despues de aplicar umbral
+
+    pixels = read_pgm("input.pgm", &width, &height, &max_val);
+    original = save_copy(pixels, width * height); //guarda copia del original antes de modificarlo
     printf("Ingrese umbral (0-%d): ", max_val);
     scanf("%d", &threshold);
-    apply_threshold(pixels, width * height, threshold);
+    apply_threshold(pixels, width * height, threshold); // me incomoda el orden
+    negative = make_negative(pixels, width * height);
+    write_pgm("thresholded.pgm", pixels, width, height, max_val);
+    write_pgm("negative.pgm", negative, width, height, max_val);    
+    print_stats(original, pixels, width * height); // se puede usar el mismo arreglo para ambos parametros
     /* El estudiante completa */
+    free(pixels);
+    free(negative);
+    free(original);
 
     return 0;
 }
