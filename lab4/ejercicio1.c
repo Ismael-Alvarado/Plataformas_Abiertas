@@ -1,6 +1,6 @@
- #include <stdio .h>
- #include <stdlib .h>
-
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <time.h>
  /*
  Encuentra la secuencia de 1s consecutivos mas larga en la
 matriz, tratandola como un arreglo lineal (los 1s que
@@ -18,7 +18,7 @@ void findLargestLine(int **matrix, int size , int *result) {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             //printf("%d ", *(*(matrix+ i) + j));
-            if (∗(∗(matrix+ i) + j)) {
+            if (*(*(matrix+ i) + j)) {
                 unos++;
                 if (unos>tmp) {
                     tmp=unos;
@@ -59,6 +59,7 @@ Params:
  − int size : numero de filas y columnas.
 ∗/*/
  void fillMatrix(int **matrix, int size) {
+    srand(time(NULL));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             *(*(matrix+ i) + j) = rand()%2;
@@ -73,12 +74,12 @@ Imprime la matriz en stdout.
 Params:
 int ∗∗matrix : puntero a la matriz.
 int size : numero de filas y columnas.
-*/*/
+*/
 void printMatrix(int **matrix, int size) {
     printf("Matriz (%dx%d):\n", size , size);
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            printf("%d ", ∗(∗(matrix+ i) + j));
+            printf("%d ", *(*(matrix+ i) + j));
             }
     printf("\n");
     }
@@ -104,8 +105,7 @@ int main(void) {
     int **matrix=NULL;
     int validar = 0;
     do {
-        printf("Digite tamano de matriz: ",
-    largestLine);
+        printf("Digite tamano de matriz: ");
         validar = scanf("%d",&size);
     } while (validar !=0 && size <= 0);
     allocateMatrix(&matrix, size);
