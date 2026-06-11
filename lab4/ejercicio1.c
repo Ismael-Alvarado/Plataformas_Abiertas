@@ -12,7 +12,24 @@ Params:
  − int size : numero de filas y columnas.
 − int ∗result : donde se almacena la longitud encontrada.
  ∗/
- void findLargestLine(int ∗∗matrix, int size , int ∗result) {
+void findLargestLine(int ∗∗matrix, int size , int ∗result) {
+    int tmp=0;
+    int unos=0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            //printf("%d ", ∗(∗(matrix+ i) + j));
+            if (∗(∗(matrix+ i) + j)) {
+                unos++;
+                if (unos>tmp) {
+                    tmp=unos;
+                }
+            } 
+            else {
+                unos=0;
+            }
+    }
+    }
+    *result=tmp;
  }
 
 /∗
@@ -24,9 +41,16 @@ Params:
 a la matriz creada.
 − int size : numero de filas y columnas.
  ∗/
- void allocateMatrix(int ∗∗∗matrix, int size) {
- }
-
+void allocateMatrix(int ***matrix, int size) {
+    *matrix = malloc(size * sizeof(int *));
+    if (*matrix == NULL)
+        return;
+    for (int i = 0; i < size; i++) {
+        *(*matrix + i) = malloc(size * sizeof(int));
+        if (*(*matrix + i) == NULL)
+            return;
+    }
+}
 /∗
 Llena la matriz con valores binarios aleatorios (0 o 1).
 
@@ -35,6 +59,12 @@ Params:
  − int size : numero de filas y columnas.
 ∗/
  void fillMatrix(int ∗∗matrix, int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            ∗(∗(matrix+ i) + j) = rand()%2;
+            }
+
+    }
  }
  /∗
 
@@ -44,13 +74,13 @@ Params:
 − int size : numero de filas y columnas.
 ∗/
 void printMatrix(int ∗∗matrix, int size) {
-printf("Matriz (%dx%d):\n", size , size);
-for (int i = 0; i < size; i++) {
-for (int j = 0; j < size; j++) {
-printf("%d ", ∗(∗(matrix+ i) + j));
-}
-printf("\n");
-}
+    printf("Matriz (%dx%d):\n", size , size);
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            printf("%d ", ∗(∗(matrix+ i) + j));
+            }
+    printf("\n");
+    }
 }
 
  /∗
@@ -60,7 +90,8 @@ Libera la memoria asignada a la matriz.
  − int ∗∗matrix : puntero a la matriz a liberar.
  − int size : numero de filas y columnas.
  ∗/
- void freeMatrix(int ∗∗matrix, int size) {
+
+void freeMatrix(int ∗∗matrix, int size) {
 for (int i = 0; i < size; i++) {
  free(∗(matrix+ i));
 }
