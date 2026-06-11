@@ -16,6 +16,16 @@ Retorno:
 */
 unsigned char *read_pgm(const char *filename,
                         int *width, int *height, int *max_val) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: No se pudo abrir el archivo %s\n", filename);
+        return NULL;
+    }
+        // leer dimensiones
+    fscanf(fp, "%d %d", width, height);
+
+    // leer valor maximo
+    fscanf(f, "%d", max_val);
 }
 
 /*
@@ -83,7 +93,8 @@ int main(void) {
     int width, height, max_val, threshold;
     unsigned char *pixels = NULL;
     unsigned char *negative = NULL;
-
+    read_pgm("input.pgm", &width, &height, &max_val);
+    printf("Ingrese umbral (0-%d): ", max_val);
     /* El estudiante completa */
 
     return 0;
