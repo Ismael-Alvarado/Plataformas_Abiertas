@@ -27,6 +27,17 @@ unsigned char *read_pgm(const char *filename,
 
     // leer valor maximo
     fscanf(fp, "%d", max_val);
+    //return del arreglo de pixeles
+    unsigned char *pixels = malloc((*width) * (*height) * sizeof(unsigned char));
+    for (int i = 0; i < (*width) * (*height); i++) {
+        int tmp;
+        unsigned char pixel;
+        fscanf(fp, "%d", &tmp); // leer cada pixel como entero
+        pixel = (unsigned char)tmp; // convertir a unsigned char
+        *(pixels + i) = pixel; // guardar pixel en arreglo
+    }
+    fclose(fp);
+    return pixels; // devolver arreglo de pixeles
 }
 
 /*
@@ -41,6 +52,13 @@ Params:
 */
 void apply_threshold(unsigned char *pixels,
                      int total, int threshold) {
+    for (int i = 0; i < total; i++) {
+        if (*(pixels + i) >= threshold) {
+            *(pixels + i) = 255;
+        } else {
+            *(pixels + i) = 0;
+        }
+    }
 }
 
 /*
@@ -57,6 +75,15 @@ Retorno:
 */
 unsigned char *make_negative(unsigned char *pixels,
                              int total) {
+    unsigned char *negative = malloc(total * sizeof(unsigned char));
+    if (negative == NULL) {
+        fprintf(stderr, "Error: No se pudo reservar memoria para el negativo\n");
+        return NULL;
+    }
+    for (int i = 0; i < total; i++) {
+        *(negative + i) = 255 - *(pixels + i);
+    }
+    return negative;
 }
 
 /*
@@ -74,6 +101,19 @@ void write_pgm(const char *filename,
                int width,
                int height,
                int max_val) {
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: No se pudo abrir el archivo %s para escribir\n", filename);
+        return;
+    }
+    fprintf(fp, "P2\n%d %d\n%d\n", width, height, max_val);
+    for (int i = 0; i < width * height; i++) {
+        fprintf(fp, "%d ", *(pixels + i)); // escribe cada pixel
+        if ((i + 1) % width == 0) { // salto de linea al acabar ancho
+            fprintf(fp, "\n");
+        }
+    }
+    fclose(fp);
 }
 
 /*
@@ -88,6 +128,7 @@ Params:
 void print_stats(unsigned char *original,
                  unsigned char *thresholded,
                  int total) {
+    int count_0 = 0, count_255 = 0;
 }
 
 int main(void) {
@@ -96,6 +137,8 @@ int main(void) {
     unsigned char *negative = NULL;
     read_pgm("input.pgm", &width, &height, &max_val);
     printf("Ingrese umbral (0-%d): ", max_val);
+    scanf("%d", &threshold);
+    apply_threshold(pixels, width * height, threshold);
     /* El estudiante completa */
 
     return 0;
