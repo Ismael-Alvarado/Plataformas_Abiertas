@@ -21,11 +21,12 @@ unsigned char *read_pgm(const char *filename,
         fprintf(stderr, "Error: No se pudo abrir el archivo %s\n", filename);
         return NULL;
     }
+    fscanf(fp, "%*s"); // para leer formato y pasar recto
         // leer dimensiones
     fscanf(fp, "%d %d", width, height);
 
     // leer valor maximo
-    fscanf(f, "%d", max_val);
+    fscanf(fp, "%d", max_val);
 }
 
 /*
