@@ -174,8 +174,12 @@ int main(void) {
 
     pixels = read_pgm("input.pgm", &width, &height, &max_val);
     original = save_copy(pixels, width * height); //guarda copia del original antes de modificarlo
-    printf("Ingrese umbral (0-%d): ", max_val);
-    scanf("%d", &threshold);
+    do {
+        int validar = 0;
+        printf("Ingrese umbral (0-%d): ", max_val);
+        scanf("%d", &threshold);
+        while(getchar() != '\n'); //limpia buffer, espacio contaminado de un scan incorrecto
+    } while (threshold < 0 || threshold > max_val || validar != 1); //validacion de umbral
     apply_threshold(pixels, width * height, threshold); // me incomoda el orden
     negative = make_negative(pixels, width * height);
     write_pgm("thresholded.pgm", pixels, width, height, max_val);
