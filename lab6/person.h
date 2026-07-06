@@ -1,10 +1,17 @@
 #ifndef PERSON_H    
 #define PERSON_H
-#include <string>
-class Person {
-private:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
     char name[50]; // Nombre de la persona
     int age; // Edad de la persona
     double height; // Altura de la persona en centímetros
-};
+} Person;
+
+typedef struct {
+    Person listas[100]; // Lista de personas
+    size_t size; // Número de personas en la multitud
+} Multitud;
 #endif // PERSON_H      
