@@ -14,4 +14,7 @@ typedef struct {
     Person listas[100]; // Lista de personas
     size_t size; // Número de personas en la multitud
 } Multitud;
+
+void init_multitud(Multitud* m);
+void agregar_person(Multitud* m, char name, int age, double height);
 #endif // PERSON_H      
